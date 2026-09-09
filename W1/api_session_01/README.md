@@ -9,24 +9,26 @@
 ## Thiết lập và chạy:
 
 1. Kích hoạt môi trường ảo:
+- Windows: 
    ```bash
-   # Windows: 
    python -m venv .venv
    .venv\Scripts\activate
-   # Linux/Mac: 
+   ```
+- Linux/Mac: 
+   ```bash
    python3 -m venv .venv
    source .venv/bin/activate
     ```
-2. Cài đặt thư viện (flask):
+3. Cài đặt thư viện (flask):
    ```bash
    pip install -r requirements.txt
-   # Kiểm tra
+   # Kiểm tra:
    flask --version
    ```
 
-3. Khởi động file python theo bài tương ứng:
+4. Khởi động file python theo bài tương ứng:
    ```bash
    python <Bài số x>.py
    ```
 
-4. Mở terminal khác và test với `curl` (theo ví dụ trong các ảnh kết quả)
+5. Mở terminal khác và test với `curl` (theo ví dụ trong các ảnh kết quả)
