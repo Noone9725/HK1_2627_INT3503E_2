@@ -24,4 +24,5 @@ HK1_2627_INT3503E_2/
 - **Tuần 1:**
   - [API Session 01](./W1/api_session_01)
   - [Homework](./W1/homework)
+  - [Prepare](./W1/prepare)
 - **Tuần 2:**
