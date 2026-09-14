@@ -34,5 +34,5 @@
 
 ## Bài 3: Hoàn thiện Bài 6 + Bổ sung
 
-- File code python: [Upgades_B6](./W1/api_session_01/upgades_B6.py)
+- File code python: [Upgades_B6](./W1/api_session_01/upgrades_B6.py)
 - Link Drive ảnh kết quả test: ["W1\api_session_01\test_results\Upgades_B6_test"](https://drive.google.com/drive/folders/1iQ3v4duvV0TC_mx9drwIPdpXeh6WTxvE?usp=sharing) 
