@@ -72,5 +72,28 @@ Hoạt động của Content Negotiation: Nếu client gửi request với heade
 
 ## VI. Mở rộng Bài 6 thành RESTful (Phân tách PUT/PATCH và Bắt Header)
 
-- File code python: [Restful_B6](/W1/api_session_01/restful_B6.py)
-- Link Drive ảnh kết quả test: ["W1\api_session_01\test_results\RESTful_B6_test"](https://drive.google.com/drive/folders/1m6ZvhPj8IJBON1aIjKXUJSRVU3VZhZcn?usp=sharing)
+### File code python: 
+[Restful_B6](/W1/api_session_01/restful_B6.py)
+
+### Ảnh Test:
+
+![W1_RB6_GET_404](https://github.com/user-attachments/assets/705a6228-16b5-4876-98ce-fca4b3d392a4)
+*Hình 1: Test GET_404_NOT_FOUND RB6*
+
+![W1_RB6_GET_all](https://github.com/user-attachments/assets/012a7e47-459a-4e75-acd9-016f9ea4c413)
+*Hình 2: Test GET_all_200_OK RB6*
+
+![W1_RB6_GET_SearchSortTitle](https://github.com/user-attachments/assets/ddf960d4-06de-46d7-917e-14898f61f6d6)
+*Hình 3: Test GET_SearchSortTitle_200_OK RB6*
+
+![W1_RB6_POST_201](https://github.com/user-attachments/assets/aae5cae2-a2cc-478c-98ab-72bd3cd6d0ba)
+*Hình 4: Test POST_201_CREATED RB6*
+
+![W1_RB6_POST_415](https://github.com/user-attachments/assets/c6d0640e-2c23-4429-883a-5ea0f6e16ad5)
+*Hình 5: Test POST_415_UNSUPPORTED_MEDIA_TYOE RB6*
+
+![W1_RB6_DELETE_204](https://github.com/user-attachments/assets/21e3e431-98b4-4d95-a144-9a00d472b1e9)
+*Hình 6: Test DELETE_204_NO_CONTENT RB6*
+
+![W1_RB6_400](https://github.com/user-attachments/assets/d0d48d7a-baee-42bf-9843-b66a787d6908)
+*Hình 7: Test W1_RB6_400_BAD_REQUEST RB6*

@@ -13,7 +13,7 @@ HK1_2627_INT3503E_2/
 │       ├── B2.py
 │       └── ...
 └── W2/                        # Tuần 2
-    └── project_name/
+    └── api_session_02/
         ├── README.md          # README bài tập
         └── ...
 ```
@@ -26,3 +26,7 @@ HK1_2627_INT3503E_2/
   - [Homework](./W1/homework)
   - [Prepare](./W1/prepare)
 - **Tuần 2:**
+  - [API Session 02](./W2/api_session_02)
+  - [Homework](./W2/homework)
+  - [Prepare](./W2/prepare)
+- **Tuần 3:**

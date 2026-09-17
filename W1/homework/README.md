@@ -34,5 +34,22 @@
 
 ## Bài 3: Hoàn thiện Bài 6 + Bổ sung
 
-- File code python: [Upgades_B6](/W1/api_session_01/upgrades_B6.py)
-- Link Drive ảnh kết quả test: ["W1\api_session_01\test_results\Upgades_B6_test"](https://drive.google.com/drive/folders/1iQ3v4duvV0TC_mx9drwIPdpXeh6WTxvE?usp=sharing) 
+### File code python: 
+[Upgades_B6](/W1/api_session_01/upgrades_B6.py)
+
+### Ảnh Test:
+
+![W1_UB6_(a)_GET_SearchTitle](https://github.com/user-attachments/assets/ada27dd1-13d7-4528-84f3-5fc23df7577e)
+*Hình 1: Test GET_SearchTitle_200_OK UB6*
+
+![W1_UB6_(a)_GET_SortTitle](https://github.com/user-attachments/assets/485780b3-b4bc-4811-93dd-8368996467a6)
+*Hình 2: Test GET_SortTitle_200_OK UB6*
+
+![W1_UB6_(c)_POST_201](https://github.com/user-attachments/assets/d34333d6-51bd-4447-8da2-b8188470ddd5)
+*Hình 3: Test POST_201_CREATED UB6*
+
+![W1_UB6_(c)_POST_400](https://github.com/user-attachments/assets/af698bbd-23e6-4333-b77c-db3510aaa01a)
+*Hình 4: Test POST_400_BAD_REQUEST UB6*
+
+![W1_UB6_(c)_PUT](https://github.com/user-attachments/assets/f8543f23-83f0-418d-850b-0a65d8d7172e)
+*Hình 5: Test PUT UB6*
