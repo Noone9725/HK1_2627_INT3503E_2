@@ -1,4 +1,7 @@
+# Chuẩn bị nội dung Buổi 2: REST & HTTP
+
 ## I. Câu hỏi cho buổi 2
+---
 
 ### PUT vs PATCH khác nhau thế nào?
 - **PUT:** Cập nhật toàn bộ/ghi đè tài nguyên (Replace).
@@ -21,7 +24,10 @@ Giả sử resource sách là {"id": 1, "title": "A", "year": 2020}.
     + `no-cache`: Client vẫn lưu cache, nhưng mỗi lần dùng phải gửi một request mồi lên server để hỏi xem cache còn hợp lệ không.
     + `max-age=3600`: Cache có giá trị sử dụng trong 3600 giây.
 
+---
+
 ## II. 6 nguyên tắc REST chi tiết
+---
 
 ### 1. Client-Server: Tách biệt giao diện và dữ liệu.
 - `Client-Server`: `Backend (Server)` và `Frontend/Mobile (Client)` không liên quan đến công nghệ của nhau. 
@@ -38,7 +44,11 @@ Giả sử resource sách là {"id": 1, "title": "A", "year": 2020}.
 ### 6. Code-On-Demand (Tùy chọn): Trả về mã thực thi.
 - Server có thể trả về một đoạn mã (như JavaScript) để client trực tiếp thực thi (ít dùng trong API dữ liệu hiện đại).
 
+---
+
 ## III. HTTP Methods
+---
+
 - `GET`: Đọc dữ liệu (Read).
 - `POST`: Tạo dữ liệu mới (Create).
 - `PUT`: Ghi đè/Cập nhật toàn bộ (Update).
@@ -49,7 +59,11 @@ Giả sử resource sách là {"id": 1, "title": "A", "year": 2020}.
     + `GET, PUT, DELETE` là lũy đẳng (xóa bản ghi id=1 một lần hay nhiều lần thì bản ghi đó vẫn biến mất).
     + `POST` không lũy đẳng (nhấn nút submit 10 lần sẽ sinh ra 10 bản ghi mới).
 
+---
+
 ## IV. HTTP Headers quan trọng & Content Negotiation
+---
+
 - `Content-Type`: Cho biết request body hoặc response body đang chứa loại dữ liệu gì.
 - `Accept`: Client báo cho server biết nó mong muốn nhận lại dữ liệu định dạng gì.
 - `Authorization`: Gửi thông tin chứng minh danh tính (như Token, API Key).
@@ -57,7 +71,11 @@ Giả sử resource sách là {"id": 1, "title": "A", "year": 2020}.
 - **Content Negotiation:** Cơ chế "thỏa thuận" định dạng nội dung giữa client và server thông qua cặp header Accept và Content-Type.
 Hoạt động của Content Negotiation: Nếu client gửi request với header Accept: application/xml, server sẽ cố gắng chuyển đổi dữ liệu thành dạng XML và trả về kèm Content-Type: application/xml. Nếu server chỉ hỗ trợ JSON, nó sẽ từ chối bằng lỗi 406 Not Acceptable, hoặc tự fallback trả về application/json tùy cấu hình.
 
+---
+
 ## V. Status Codes mở rộng
+---
+
 - **2xx (Thành công):** `200 OK`, `201 Created`, `204 No Content`.
 - **3xx (Chuyển hướng):** `301 Moved Permanently (chuyển URL vĩnh viễn)`, `304 Not Modified (báo client dùng cache)`.
 - **4xx (Lỗi Client):** `400 Bad Request (lỗi cú pháp/logic)`, `401 Unauthorized (chưa xác thực)`, `403 Forbidden (đã xác thực nhưng thiếu quyền)`, `404 Not Found`, `405 Method Not Allowed`, `409 Conflict`, `410 Gone`, `415 Unsupported Media Type`, `429 Too Many Requests`.
@@ -70,7 +88,10 @@ Hoạt động của Content Negotiation: Nếu client gửi request với heade
     - `405`: Client gọi sai method. Ví dụ URL /students cấu hình chỉ nhận POST, nhưng client lại dùng lệnh PUT.
     - `415`: Client cấu hình sai header. Ví dụ server chỉ nhận JSON, nhưng client lại gửi file lên với Content-Type: text/html.
 
+---
+
 ## VI. Mở rộng Bài 6 thành RESTful (Phân tách PUT/PATCH và Bắt Header)
+---
 
 ### File code python: 
 [Restful_B6](/W1/api_session_01/restful_B6.py)
@@ -97,3 +118,5 @@ Hoạt động của Content Negotiation: Nếu client gửi request với heade
 
 ![W1_RB6_400](https://github.com/user-attachments/assets/d0d48d7a-baee-42bf-9843-b66a787d6908)
 *Hình 7: Test W1_RB6_400_BAD_REQUEST RB6*
+
+---
