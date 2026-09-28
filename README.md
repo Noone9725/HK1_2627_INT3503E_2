@@ -30,3 +30,7 @@ HK1_2627_INT3503E_2/
   - [Homework](./W2/homework)
   - [Prepare](./W2/prepare)
 - **Tuần 3:**
+  - [API Design](./W3/api_design)
+  - [Homework](./W3/homework)
+  - [Prepare](./W3/prepare)
+- **Tuần 4:**
