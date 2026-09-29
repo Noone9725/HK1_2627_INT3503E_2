@@ -1,0 +1,96 @@
+openapi: 3.0.0
+info:
+  title: Book Management API
+  description: API quản lý sách chuẩn Resource-Oriented.
+  version: 1.0.0
+servers:
+  - url: http://127.0.0.1:5000/api/v1
+paths:
+  /books:
+    get:
+      summary: Lấy danh sách sách (List)
+      responses:
+        '200':
+          description: Thành công
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Book'
+    post:
+      summary: Tạo sách mới (Create)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookInput'
+      responses:
+        '201':
+          description: Đã tạo thành công
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+  /books/{id}:
+    parameters:
+      - $ref: '#/components/parameters/BookId'
+    get:
+      summary: Lấy thông tin 1 cuốn sách (Get)
+      responses:
+        '200':
+          description: Thành công
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+        '404':
+          description: Không tìm thấy sách
+    put:
+      summary: Cập nhật sách (Update)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookInput'
+      responses:
+        '200':
+          description: Cập nhật thành công
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+    delete:
+      summary: Xoá sách (Delete)
+      responses:
+        '204':
+          description: Xoá thành công, không có nội dung trả về
+components:
+  parameters:
+    BookId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+  schemas:
+    Book:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        author:
+          type: string
+    BookInput:
+      type: object
+      required:
+        - title
+      properties:
+        title:
+          type: string
+        author:
+          type: string
