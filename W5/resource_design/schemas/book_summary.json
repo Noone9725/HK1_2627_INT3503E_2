@@ -1,0 +1,12 @@
+{
+  "type": "object",
+  "required": ["id", "title", "stock_status"],
+  "properties": {
+    "id": {"type": "string"},
+    "title": {"type": "string"},
+    "cover_url": {"type": "string"},
+    "stock_status": {
+      "enum": ["available", "out_of_stock"]
+    }
+  }
+}

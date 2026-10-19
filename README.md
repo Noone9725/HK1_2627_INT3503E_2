@@ -37,3 +37,6 @@ HK1_2627_INT3503E_2/
   - [Tasks API](./W4/tasks-api)
   - [Prepare](./W4/prepare)
 - **Tuần 5:**
+  - [Bookstore API](./W5/bookstore-api)
+  - [Resource Design](./W5/resource_design/)
+- **Tuần 6:**

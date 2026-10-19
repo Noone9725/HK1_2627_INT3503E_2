@@ -1,0 +1,16 @@
+{
+  "type": "object",
+  "required": ["title", "category_id", "author_ids", "stock"],
+  "properties": {
+    "title": {"type": "string", "minLength": 1},
+    "isbn": {"type": "string", "pattern": "^\\d{13}$"},
+    "category_id": {"type": "string", "pattern": "^cat_[a-z0-9]+$"},
+    "author_ids": {
+      "type": "array",
+      "items": {"type": "string", "pattern": "^auth_[a-z0-9]+$"},
+      "minItems": 1
+    },
+    "stock": {"type": "integer", "minimum": 0},
+    "published_year": {"type": "integer"}
+  }
+}

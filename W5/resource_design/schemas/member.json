@@ -1,0 +1,14 @@
+{
+  "type": "object",
+  "required": ["id", "full_name", "email", "status"],
+  "properties": {
+    "id": {"type": "string", "pattern": "^mem_[a-z0-9]+$"},
+    "full_name": {"type": "string"},
+    "email": {"type": "string", "format": "email"},
+    "phone": {"type": "string"},
+    "status": {
+      "enum": ["active", "suspended", "deleted"],
+      "description": "Trạng thái tài khoản, hỗ trợ logic Soft-delete"
+    }
+  }
+}
