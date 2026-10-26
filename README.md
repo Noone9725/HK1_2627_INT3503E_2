@@ -40,3 +40,6 @@ HK1_2627_INT3503E_2/
   - [Bookstore API](./W5/bookstore-api)
   - [Resource Design](./W5/resource_design/)
 - **Tuần 6:**
+  - [BTVN W6](./W6)
+    - [OpenAPI Spec](./W6/openapi_spec)
+    - [Security Audit](./W6/SecurityAudit.md)

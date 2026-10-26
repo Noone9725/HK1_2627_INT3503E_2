@@ -1,0 +1,269 @@
+openapi: 3.0.3
+info:
+  title: UET-Connect Social Network API
+  version: 1.0.0
+  description: >
+    Đặc tả API cho mạng xã hội học thuật nội bộ. 
+    Bao gồm xác thực JWT (Access/Refresh Token), kiểm soát quyền theo Scope/RBAC và chống BOLA.
+
+servers:
+  - url: https://api.uetconnect.edu.vn/v1
+    description: Production HTTPS Server
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: >
+        Sử dụng JWT trong header `Authorization: Bearer <token>`.
+        - Với các endpoint nghiệp vụ: truyền Access Token (TTL 15 phút).
+        - Với endpoint `/auth/refresh`: truyền Refresh Token (TTL 30 ngày).
+
+  schemas:
+    LoginRequest:
+      type: object
+      required:
+        - email
+        - password
+      additionalProperties: false
+      properties:
+        email:
+          type: string
+          format: email
+          example: "an@vnu.edu.vn"
+        password:
+          type: string
+          format: password
+          minLength: 8
+          maxLength: 72
+          example: "correct horse battery staple"
+
+    TokenPairResponse:
+      type: object
+      required:
+        - access_token
+        - refresh_token
+        - token_type
+        - expires_in
+      properties:
+        access_token:
+          type: string
+          description: JWT Access Token (hết hạn sau 900 giây), chứa claims roles và scopes.
+        refresh_token:
+          type: string
+          description: JWT Refresh Token (hết hạn sau 2592000 giây), dùng để cấp lại Access Token.
+        token_type:
+          type: string
+          example: "Bearer"
+        expires_in:
+          type: integer
+          example: 900
+
+    AccessTokenResponse:
+      type: object
+      required:
+        - access_token
+        - token_type
+        - expires_in
+      properties:
+        access_token:
+          type: string
+          description: JWT Access Token mới với roles và scopes được nạp lại từ DB.
+        token_type:
+          type: string
+          example: "Bearer"
+        expires_in:
+          type: integer
+          example: 900
+
+    PostDTO:
+      type: object
+      description: DTO trả về dữ liệu bài viết, đã loại bỏ các trường nhạy cảm của hệ thống.
+      required:
+        - id
+        - title
+        - content
+        - author_id
+        - is_private
+        - created_at
+      properties:
+        id:
+          type: integer
+          example: 123
+        title:
+          type: string
+          example: "Tổng hợp kiến thức SOA Buổi 6"
+        content:
+          type: string
+          example: "Nội dung thảo luận về OAuth 2.0 và JWT..."
+        author_id:
+          type: string
+          example: "42"
+        is_private:
+          type: boolean
+          example: true
+        created_at:
+          type: string
+          format: date-time
+          example: "2026-10-26T08:30:00Z"
+
+    ErrorResponse:
+      type: object
+      required:
+        - error
+        - message
+      properties:
+        error:
+          type: string
+          example: "invalid_credentials"
+        message:
+          type: string
+          example: "Email hoặc mật khẩu không chính xác."
+
+paths:
+  /auth/login:
+    post:
+      summary: Đăng nhập và nhận cặp Access/Refresh Token
+      description: |
+        - **Scope yêu cầu:** Không (Public Endpoint).
+        - **Bảo mật:** Xác minh mật khẩu bằng Argon2id, trả lỗi chung để chống dò tài khoản, áp dụng Rate-limit chống Brute-force.
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Xác thực thành công, trả về cặp token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenPairResponse'
+        '400':
+          description: Dữ liệu đầu vào thiếu hoặc sai định dạng.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error: "invalid_request"
+                message: "Email và mật khẩu là bắt buộc."
+        '401':
+          description: Sai email hoặc mật khẩu (trả về cùng một cấu trúc lỗi và thời gian xử lý tương đương).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error: "invalid_credentials"
+                message: "Thông tin đăng nhập không hợp lệ."
+        '429':
+          description: Vượt quá số lần đăng nhập cho phép trong một khung thời gian.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error: "rate_limit_exceeded"
+                message: "Quá nhiều yêu cầu đăng nhập. Vui lòng thử lại sau."
+
+  /auth/refresh:
+    post:
+      summary: Đổi Refresh Token lấy Access Token mới
+      description: |
+        - **Scope yêu cầu:** Không yêu cầu scope nghiệp vụ, nhưng bắt buộc truyền **Refresh Token** hợp lệ trong header `Authorization: Bearer <refresh_token>`.
+        - **Bảo mật:** Kiểm tra chữ ký, hạn `exp`, kiểm tra `jti` không nằm trong Redis blocklist, và nạp lại `roles`/`scopes` mới nhất từ DB.
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Cấp mới Access Token thành công.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessTokenResponse'
+        '401':
+          description: Thiếu token, truyền nhầm Access Token, token hết hạn, sai chữ ký hoặc đã bị thu hồi trong Redis blocklist.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error: "invalid_or_revoked_token"
+                message: "Refresh token không hợp lệ, đã hết hạn hoặc đã bị thu hồi."
+        '429':
+          description: Yêu cầu làm mới token vượt quá giới hạn tần suất.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error: "rate_limit_exceeded"
+                message: "Thao tác quá nhanh. Vui lòng thử lại sau."
+
+  /posts/{id}:
+    get:
+      summary: Lấy thông tin chi tiết một bài viết
+      description: |
+        - **Scope yêu cầu:** `posts:read` (kiểm tra từ claims `scopes` trong Access Token).
+        - **Chính sách phân quyền (AuthZ & Chống BOLA):**
+          1. Kiểm tra Access Token hợp lệ và chưa bị thu hồi (`401`).
+          2. Kiểm tra token có chứa scope `posts:read` (`403 insufficient_scope`).
+          3. Nếu bài viết có `is_private = true`, chỉ cho phép truy cập nếu `post.author_id == jwt.sub` hoặc người dùng có role `admin` (`403 forbidden`).
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID định danh của bài viết cần xem.
+          schema:
+            type: integer
+            minimum: 1
+          example: 123
+      responses:
+        '200':
+          description: Trả về chi tiết bài viết (đã lọc qua DTO).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostDTO'
+        '401':
+          description: Thiếu Access Token, token hết hạn, sai chữ ký/issuer/audience hoặc đã bị thu hồi.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error: "unauthorized"
+                message: "Token xác thực không hợp lệ hoặc đã hết hạn."
+        '403':
+          description: Thiếu scope `posts:read` HOẶC không có quyền sở hữu đối với bài viết riêng tư (Chống BOLA).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                missing_scope:
+                  summary: Thiếu scope posts:read
+                  value:
+                    error: "insufficient_scope"
+                    message: "Yêu cầu quyền truy cập: posts:read"
+                bola_blocked:
+                  summary: Vi phạm quyền sở hữu đối tượng (Ownership)
+                  value:
+                    error: "forbidden"
+                    message: "Bạn không có quyền xem bài viết riêng tư của người dùng khác."
+        '404':
+          description: Không tìm thấy bài viết với ID cung cấp.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error: "not_found"
+                message: "Bài viết không tồn tại."
