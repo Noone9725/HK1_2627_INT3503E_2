@@ -43,3 +43,6 @@ HK1_2627_INT3503E_2/
   - [BTVN W6](./W6)
     - [OpenAPI Spec](./W6/openapi_spec)
     - [Security Audit](./W6/SecurityAudit.md)
+- **Tuần 7:**
+  - [BTVN W7 - Lab 1](./W7)
+- **Tuần 8:**
