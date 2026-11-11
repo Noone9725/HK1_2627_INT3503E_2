@@ -1,0 +1,34 @@
+extends: ["spectral:oas"]
+rules:
+  no-body-on-204:
+    description: Responses with HTTP status 204 MUST NOT define content.
+    message: "HTTP 204 response must not define a content body."
+    severity: error
+    given: "$.paths[*][*].responses['204']"
+    then:
+      field: content
+      function: falsy
+
+  book-year-integer:
+    description: Book.year schema type must be integer matching the database model.
+    message: "Book.year schema type must be integer, not string."
+    severity: error
+    given: "$.components.schemas.Book.properties.year.type"
+    then:
+      function: enumeration
+      functionOptions:
+        values:
+          - integer
+
+  response-200-schema-not-empty:
+    description: Response 200 returning an object schema must define properties.
+    message: "Response 200 object schema must not be empty; must define at least 1 property."
+    severity: error
+    given: "$.paths[*][*].responses['200'].content['application/json'].schema[?(@.type === 'object')]"
+    then:
+      field: properties
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          minProperties: 1
