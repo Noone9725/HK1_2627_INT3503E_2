@@ -32,12 +32,22 @@ def create_app(config=None, cfg=None):
     db_path = Path("instance/books.db").resolve()
     db_path.parent.mkdir(parents=True, exist_ok=True)
 
+    # Kịch bản test lý thuyết: ép SQLAlchemy dùng hàng đợi kết nối với pool_size=5, max_overflow=0, pool_timeout=20ms
+    # from sqlalchemy.pool import QueuePool
+    # app.config["SQLALCHEMY_ENGINE_OPTIONS"] = {
+    # "poolclass": QueuePool,    # Bắt buộc: ép dùng hàng đợi kết nối
+    # "pool_size": 5,            # Tối đa 5 kết nối
+    # "max_overflow": 0,         # Không cho phép kết nối dự phòng
+    # "pool_timeout": 0.02       # Timeout 20ms (nhỏ hơn p95=55ms) (ép kịch bản lý thuyết)
+    # }
+
     app.config.update(
         SQLALCHEMY_DATABASE_URI="sqlite:///" + str(Path("instance/books.db").resolve()),
         SQLALCHEMY_TRACK_MODIFICATIONS=False,
         JSON_SORT_KEYS=False,
         TESTING=False,
     )
+
     app.config.update(config or cfg or {})
     db.init_app(app)
 

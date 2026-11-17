@@ -20,6 +20,30 @@
 
 ## 4. Lab 04
 
-![Lab04]()
+Kết quả đo:
 
-*Hình 4: Test log lab04*
+| Kịch bản | Users | Spawn rate | Duration | p95 (ms) | Failure rate | RPS |
+|---|---:|---:|---:|---:|---:|---:|
+| A | 10 | 2 | 30s | 22 | 0.00 | 4.76 |
+| B | 50 | 5 | 60s | 24 | 0.05 | 23.05 |
+| C | 200 | 50 | 30s | 55 | 0.24 | 98.26 |
+
+- Phân tích:
+
+[analysis](/W8/lab08-starter/performance/analysis.md)
+
+- Kết quả kịch bản A: 
+
+[A](/W8/lab08-starter/reports/A.html)
+
+- Kết quả kịch bản B: 
+
+[B](/W8/lab08-starter/reports/B.html)
+
+- Kết quả kịch bản C: 
+
+[C](/W8/lab08-starter/reports/C.html)
+
+- Kết quả kịch bản pool 5: 
+
+[pool_error](/W8/lab08-starter/reports/pool_error.html)
