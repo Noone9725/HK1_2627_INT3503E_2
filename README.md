@@ -47,3 +47,5 @@ HK1_2627_INT3503E_2/
   - [BTVN W7 - Lab 1](./W7)
 - **Tuần 8:**
   - [BTVN W8](./W8)
+- **Tuần 9:**
+  - [BTVN W9](./W9/api_version)
