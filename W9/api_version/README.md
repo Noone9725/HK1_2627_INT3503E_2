@@ -28,9 +28,13 @@
 
 ## 3. Practice 3
 
-![]()
+![W9_P3_Truoc_Sunset_200_OK](https://github.com/user-attachments/assets/c7c838a3-8f85-4c28-bf7b-a58eff6d7b3a)
 
-*Hình 6: *
+*Hình 6: Test Trước Sunset 200_OK*
+
+![W9_P3_Sau_Sunset_410_Gone](https://github.com/user-attachments/assets/4a505ecd-aa95-4ed4-b0c9-563e8c72e6ff)
+
+*Hình 7: Test Sau Sunset 410_Gone*
 
 ## 4. Practice 4
 
