@@ -38,12 +38,19 @@
 
 ## 4. Practice 4
 
-![]()
+![W9_P4_COHORT_BETA](https://github.com/user-attachments/assets/f9a0b6b7-2baa-46c7-8cb9-7adcb91ea758)
 
-*Hình : *
+*Hình 8: Test COHORT_BETA*
 
-## 5. Practice 5
+![W9_P4_FORCE_ACCOUNT](https://github.com/user-attachments/assets/ea4d31cb-5ce9-42ef-a0a0-5e8993736a5e)
 
-![]()
+*Hình 9: Test FORCE_ACCOUNT*
 
-*Hình : *
+![W9_P4_ORDINARY_ACCOUNT](https://github.com/user-attachments/assets/f55d60eb-c2c4-456d-b08e-6c3164d82894)
+
+*Hình 10: Test ORDINARY_ACCOUNT_5% - v1*
+
+![W9_P4_ORDINARY_ACCOUNT_100%](https://github.com/user-attachments/assets/2b37e9b2-6ea4-4a5a-a42f-5770e5c1f7df)
+
+*Hình 11: Test ORDINARY_ACCOUNT_100% - v2*
+
